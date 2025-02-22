@@ -182,7 +182,8 @@ ReadDuckdbSecrets() {
 			secret.connection_string = DatumToString(datum_array[Anum_duckdb_secret_connection_string - 1]);
 
 		if (!is_null_array[Anum_duckdb_secret_url_style - 1])
-			secret.url_style = StringToUrlStyle(DatumToString(datum_array[Anum_duckdb_secret_url_style - 1]));
+			auto path_str = DatumToString(datum_array[Anum_duckdb_secret_url_style - 1]);
+			secret.url_style = StringToUrlStyle(path_str);
 		else
 			secret.url_style = UrlStyle::UNDEFINED;
 
