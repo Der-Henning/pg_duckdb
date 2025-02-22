@@ -105,6 +105,7 @@ SecretTypeToString(SecretType type) {
 
 UrlStyle
 StringToUrlStyle(const std::string &style) {
+	elog(DEBUG1, "Converting string to UrlStyle: %s", style.c_str());
 	auto uc_style = duckdb::StringUtil::Upper(style);
 	if (uc_style == "PATH") {
 		return UrlStyle::PATH;
@@ -117,6 +118,7 @@ StringToUrlStyle(const std::string &style) {
 
 std::string
 UrlStyleToString(UrlStyle style) {
+	elog(DEBUG1, "Converting UrlStyle to string: %d", style);
 	switch (style) {
 	case UrlStyle::PATH:
 		return "path";
@@ -182,8 +184,8 @@ ReadDuckdbSecrets() {
 			secret.connection_string = DatumToString(datum_array[Anum_duckdb_secret_connection_string - 1]);
 
 		if (!is_null_array[Anum_duckdb_secret_url_style - 1]) {
-			auto path_str = DatumToString(datum_array[Anum_duckdb_secret_url_style - 1]);
-			secret.url_style = StringToUrlStyle(path_str);
+			auto style_str = DatumToString(datum_array[Anum_duckdb_secret_url_style - 1]);
+			secret.url_style = StringToUrlStyle(style_str);
 		} else
 			secret.url_style = UrlStyle::UNDEFINED;
 

@@ -21,7 +21,7 @@ namespace pgduckdb {
 #define Anum_duckdb_secret_url_style         12
 
 enum SecretType { S3, R2, GCS, AZURE };
-enum UrlStyle { PATH, VIRTUAL_HOST, UNDEFINED };
+enum UrlStyle { UNDEFINED, VIRTUAL_HOST, PATH };
 
 typedef struct DuckdbSecret {
 	std::string name;
